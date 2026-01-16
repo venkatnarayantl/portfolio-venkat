@@ -76,7 +76,7 @@ export default function Hero() {
             Projects
           </motion.a>
           <motion.a
-            href="/resume.pdf"
+            href="/Venkat_resume_updated.pdf"
             target="_blank"       // opens in a new tab
             rel="noopener noreferrer"
             className="px-6 py-3 border border-green-400 rounded-lg hover:bg-green-400 hover:text-black transition-all hover:scale-110"
