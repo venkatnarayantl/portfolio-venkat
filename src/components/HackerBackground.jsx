@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from "react";
+import { useEffect, useRef } from "react";
 
 export default function Background() {
   const canvasRef = useRef(null);

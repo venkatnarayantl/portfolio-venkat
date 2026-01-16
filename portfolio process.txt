@@ -1,0 +1,22 @@
+
+1) create a project folder (portfolio) 
+
+2) vs code terminal - npm create vite@latest . -- --template react
+  used vite its like a preinstalled template of react so when i put this cmd it automatically creates a skeleton of the project 
+
+3) installation of tailwind css 
+
+	-[react - structure building , tailwind - adds style to structure]
+	-css is complicated whereas tailwind is easy than css 
+	- to install tailwind and helper tools [npm install -D tailwindcss postcss autoprefixer]
+	-tailwind config files auto create - [npx tailwindcss init -p] but as im using v4 its bit different 
+for v4 of tailwind 
+	-create css file in src folder called [index.css] and paste this [@import "tailwindcss"; (orr) @tailwind base;
+	@tailwind components;
+	@tailwind utilities;]
+	- link css to project open [main.jsx] file in src folder and add this or check if its there [import './index.css']
+	- run server [npm run dev]
+	-test - [src/app.jsx] and then change [vite+react] to [<h1 className="text-4xl font-bold text-blue-500">Hello Tailwind!</h1>]
+
+
+

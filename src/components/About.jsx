@@ -1,6 +1,5 @@
-import React from "react";
 import { motion, useAnimation, useInView } from "framer-motion";
-import { useRef, useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { CpuChipIcon } from "@heroicons/react/24/solid"; // AI/code themed icon
 
 export default function About() {

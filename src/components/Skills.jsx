@@ -1,5 +1,5 @@
 // src/components/Skills.jsx
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 
 const GITHUB_USERNAME = "venkatnarayantl";
@@ -21,10 +21,22 @@ export default function Skills() {
       try {
         const url = `https://api.github.com/users/${GITHUB_USERNAME}/repos?per_page=100`;
         console.log("[Skills] fetching", url, "token present:", !!token);
-        const headers = token ? { Authorization: `token ${token}` } : {};
-        const res = await fetch(url, { headers });
+        const fetchRepos = async (useAuth) => {
+          const headers = useAuth && token ? { Authorization: `Bearer ${token}` } : {};
+          const res = await fetch(url, { headers });
+          const data = await res.json().catch(() => null);
+          return { res, data };
+        };
+
+        let { res, data } = await fetchRepos(true);
         console.log("[Skills] fetch status:", res.status);
-        const data = await res.json().catch(() => null);
+
+        if (!res.ok && token && (res.status === 401 || data?.message === "Bad credentials")) {
+          console.warn("[Skills] token rejected; retrying unauthenticated");
+          ({ res, data } = await fetchRepos(false));
+          console.log("[Skills] retry status:", res.status);
+        }
+
         console.log("[Skills] fetched data length:", Array.isArray(data) ? data.length : typeof data);
 
         if (!res.ok) {
