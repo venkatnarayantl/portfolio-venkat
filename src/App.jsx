@@ -15,7 +15,7 @@ export default function App() {
   return (
     <Router>
       <Background />
-      <div className="relative z-10">
+      <div className="relative z-10 bg-transparent">
         <Navbar />
         <Routes>
           <Route
@@ -23,7 +23,6 @@ export default function App() {
             element={
               <>
                 <Hero />
-                <Trackers />
                 <Projects />
                 <Skills />
                 <About />

@@ -1,24 +1,28 @@
 import { useEffect, useState } from "react";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 
 const links = [
-  { name: "Home", id: "home" },
-  { name: "Stats", id: "stats" },
-  { name: "Projects", id: "projects" },
-  { name: "Skills", id: "skills" },
-  { name: "About", id: "about" },
+  { name: "Home", id: "home", code: "SYS-01" },
+  { name: "Projects", id: "projects", code: "PRJ-02" },
+  { name: "Skills", id: "skills", code: "SKL-03" },
+  { name: "About", id: "about", code: "USR-04" },
 ];
 
 export default function Navbar() {
   const [active, setActive] = useState("home");
+  const [scrolled, setScrolled] = useState(false);
 
-  // smooth scroll
+  useEffect(() => {
+    const handleScroll = () => setScrolled(window.scrollY > 20);
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
   const scrollToSection = (id) => {
     const sec = document.getElementById(id);
     if (sec) sec.scrollIntoView({ behavior: "smooth", block: "start" });
   };
 
-  // IntersectionObserver to set active link on scroll
   useEffect(() => {
     const options = { root: null, rootMargin: "-40% 0px -40% 0px", threshold: 0 };
     const obs = new IntersectionObserver((entries) => {
@@ -36,75 +40,58 @@ export default function Navbar() {
   }, []);
 
   return (
-    <nav className="fixed top-6 left-1/2 transform -translate-x-1/2 w-[94%] md:w-[86%] lg:w-[74%] z-50 pointer-events-auto">
-      <div
-        className={`relative flex items-center justify-between px-5 py-3 rounded-2xl backdrop-blur-lg border shadow-md transition-all duration-300
-          bg-black/65 border-black/20 text-white
-        `}
-      >
-        {/* logo */}
-        <div className="flex items-center gap-3 cursor-pointer" onClick={() => scrollToSection("home")}>
-          <motion.span
-            className={`select-none font-extrabold text-lg md:text-2xl bg-clip-text text-transparent ${
-              "bg-gradient-to-r from-green-400 via-cyan-400 to-blue-500"
-            }`}
-            whileHover={{ scale: 1.06 }}
-            transition={{ type: "spring", stiffness: 300 }}
-          >
-            MY PORTFOLIO
-          </motion.span>
+    <nav className="fixed top-0 left-0 w-full z-[100] px-10 pt-6 flex justify-between items-start pointer-events-none">
+      
+      {/* LEFT MODULE: BRANDING */}
+      <div className="pointer-events-auto group">
+        <motion.div 
+          onClick={() => scrollToSection("home")}
+          className="relative bg-black/40 backdrop-blur-xl border-l-4 border-cyan-500 p-4 flex flex-col cursor-pointer overflow-hidden shadow-[20px_0_40px_-20px_rgba(34,211,238,0.2)]"
+        >
+          <div className="absolute top-0 right-0 w-8 h-8 bg-white/5 rotate-45 translate-x-4 -translate-y-4" />
+          <span className="text-xs font-mono text-cyan-500 leading-none mb-1 opacity-50 tracking-tighter">Welcome to my</span>
+          <h1 className="text-2xl font-black text-white italic tracking-tighter leading-none">
+            PORTFOLIO<span className="text-cyan-400 opacity-50 group-hover:opacity-100 transition-opacity"></span>
+          </h1>
+        </motion.div>
+      </div>
 
-          {/* small badge next to logo */}
-          <motion.span
-            className={`hidden md:inline-flex items-center px-2 py-0.5 text-xs rounded-full font-medium transition-all
-              bg-white/5 text-cyan-200`}
-            initial={{ opacity: 0.9 }}
-            animate={{ opacity: 1 }}
-          >
-            v1.0
-          </motion.span>
-        </div>
-
-        {/* desktop menu */}
-        <div className="hidden md:block relative">
-          <ul className="flex gap-6 px-2 py-1 relative z-10">
-            {links.map((link) => (
-              <li key={link.id} className="relative">
-                {/* moving pill: rendered only under the active item using shared layoutId */}
-                {active === link.id && (
-                  <motion.span
-                    layoutId="nav-pill"
-                    className={`absolute -inset-y-1 -inset-x-2 rounded-xl z-0 transition-all
-                      bg-gradient-to-r from-cyan-900/20 to-green-900/10
-                    `}
-                    style={{ top: -4, bottom: -4, left: -8, right: -8 }}
-                    transition={{ type: "spring", stiffness: 400, damping: 30 }}
-                  />
-                )}
-
-                <button
-                  onClick={() => scrollToSection(link.id)}
-                  className={`relative z-20 px-3 py-1 text-sm md:text-base font-medium tracking-wide transition-colors duration-250
-                    ${active === link.id ? "text-cyan-200" : "text-gray-200 hover:text-cyan-300"}`}
-                >
+      {/* CENTER MODULE: NAVIGATION */}
+      <div className="hidden lg:flex pointer-events-auto items-start">
+        <div className="flex bg-black/40 backdrop-blur-xl border border-white/5 divide-x divide-white/5">
+          {links.map((link) => (
+            <button
+              key={link.id}
+              onClick={() => scrollToSection(link.id)}
+              className="relative px-8 py-5 group overflow-hidden"
+            >
+              {/* Hover Background */}
+              <div className={`absolute inset-0 bg-cyan-500/5 transition-transform duration-500 origin-bottom ${active === link.id ? 'scale-y-100' : 'scale-y-0 group-hover:scale-y-100'}`} />
+              
+              <div className="relative z-10 flex flex-col items-center">
+                <span className={`text-[8px] font-mono mb-1 transition-colors ${active === link.id ? 'text-cyan-400' : 'text-slate-600'}`}>
+                  {link.code}
+                </span>
+                <span className={`text-[11px] font-black uppercase tracking-[0.3em] transition-all ${active === link.id ? 'text-white' : 'text-slate-400 group-hover:text-slate-200'}`}>
                   {link.name}
-                </button>
-              </li>
-            ))}
-          </ul>
-        </div>
+                </span>
+              </div>
 
-        {/* right controls */}
-        <div className="flex items-center gap-3">
-          {/* small mobile shortcut to Projects */}
-          <button
-            className="md:hidden px-2 py-1 rounded-md text-sm text-white/90"
-            onClick={() => scrollToSection("projects")}
-          >
-            Projects
-          </button>
+              {/* Top Accent Line */}
+              {active === link.id && (
+                <motion.div 
+                  layoutId="nav-top-line"
+                  className="absolute top-0 left-0 w-full h-[3px] bg-cyan-500 shadow-[0_0_15px_#22d3ee]" 
+                />
+              )}
+            </button>
+          ))}
         </div>
       </div>
+
+      {/* RIGHT MODULE: STATUS & SYSTEM */}
+      
+
     </nav>
   );
 }
