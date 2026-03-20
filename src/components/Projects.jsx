@@ -17,7 +17,7 @@ const LIVE_PROJECTS = [
     name: "Digital Portfolio",
     desc: "V3 of my professional identity. Built with high-precision Framer Motion animations and a custom cyber-dock navigation.",
     github: "https://github.com/venkatnarayantl/portfolio-venkat",
-    web: "https://venkatnarayan.dev",
+    web: "https://portfolio-venkat-y14b.vercel.app/",
     type: "LIVE_STATION"
   }
 ];
