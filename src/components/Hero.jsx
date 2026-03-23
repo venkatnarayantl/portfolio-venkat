@@ -125,8 +125,7 @@ export default function Hero() {
             <Typewriter
               words={[
                 "CSE @ SVCE (Final Year)", 
-                "Full Stack Developer", 
-                "Software Developer"
+                "Student"
               ]}
               loop={0}
               cursor

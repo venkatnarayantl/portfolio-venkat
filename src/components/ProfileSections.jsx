@@ -9,6 +9,8 @@ import {
   ShieldCheckIcon 
 } from "@heroicons/react/24/solid";
 
+
+
 const educationMap = [
   {
     institution: "SVCE (Sri Venkateshwara College of Engineering)",
@@ -35,6 +37,22 @@ const educationMap = [
     status: "Phase: Foundation_Complete",
     icon: <MapPinIcon />,
   },
+];
+
+const experienceData = [
+  {
+    company: "IBM SkillsBuild",
+    role: "AI & Cloud Computing Intern",
+    duration: "4 Weeks (Virtual)",
+    details: [
+      "Built 'Agentic Career Counsellor' using RAG and LLM orchestration on ibm skillsbuild platform.",
+      "Explored Watson services and cloud-based API integration.",
+      "Explored cloud provisioning, automation, and scalable architectures."
+    ],
+    status: "Verified_Badge: 2025",
+    icon: <CpuChipIcon />,
+    verificationLink: "https://www.linkedin.com/posts/venkat-narayan-t-l-427a97234_ai-cloudcomputing-ibm-activity-7375045176941264896-mJ5Y"
+  }
 ];
 
 const achievements = [
@@ -118,6 +136,77 @@ export default function ProfileSections() {
               </motion.div>
             ))}
           </div>
+        </div>
+      </div>
+
+      {/* SECTION 1.5: EXPERIENCE VAULT (IBM INTERNSHIP) */}
+      <div className="max-w-7xl mx-auto mb-48">
+        <div className="mb-20 flex items-center gap-6">
+          <h2 className="text-5xl md:text-7xl font-black italic uppercase tracking-tighter text-white">
+            Intern<span className="text-cyan-400 text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-blue-600">ship</span>
+          </h2>
+          <div className="h-px flex-grow bg-white/10" />
+        </div>
+
+        <div className="grid grid-cols-1 gap-12">
+          {experienceData.map((exp, idx) => (
+            <motion.div
+              key={idx}
+              initial={{ opacity: 0, x: -20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              className="group relative p-12 bg-[#0a1120]/40 border border-white/5 hover:border-blue-500/70 transition-all duration-700 overflow-hidden"
+              style={{ clipPath: "polygon(0 0, 97% 0, 100% 15%, 100% 100%, 3% 100%, 0 85%)" }}
+            >
+              {/* Background Glow */}
+              <div className="absolute top-0 right-0 w-64 h-64 bg-blue-500/5 blur-[100px] -z-10 group-hover:bg-blue-500/10 transition-colors" />
+
+              <div className="flex flex-col lg:flex-row justify-between gap-12">
+                <div className="flex-grow">
+                  <div className="flex items-center gap-4 mb-6">
+                    <div className="w-10 h-10 rounded border border-blue-500/20 flex items-center justify-center text-blue-500 bg-blue-500/5">
+                      {React.cloneElement(exp.icon, { className: "w-5 h-5" })}
+                    </div>
+                    <span className="text-blue-500 font-mono text-[10px] tracking-widest uppercase font-bold">
+                      System_Role: {exp.status}
+                    </span>
+                  </div>
+
+                  <h3 className="text-5xl md:text-6xl font-black text-white uppercase italic tracking-tighter mb-2 group-hover:text-blue-400 transition-colors">
+                    {exp.company}
+                  </h3>
+                  <p className="text-xl font-bold text-slate-400 uppercase tracking-widest mb-8 border-b border-white/5 pb-4">
+                    {exp.role} <span className="text-slate-600 ml-4">// {exp.duration}</span>
+                  </p>
+
+                  <ul className="space-y-4">
+                    {exp.details.map((detail, i) => (
+                      <li key={i} className="flex items-start gap-4 text-slate-300 font-mono text-sm leading-relaxed">
+                        <span className="text-blue-500 mt-1">▶</span>
+                        {detail}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+
+                {/* Tactical Badge/Data Panel */}
+                <div className="lg:w-72 p-6 bg-black/40 border border-white/5 backdrop-blur-md flex flex-col justify-center items-center text-center">
+                  <ShieldCheckIcon className="w-12 h-12 text-blue-500 mb-4 animate-pulse" />
+                  <p className="text-[10px] font-mono text-slate-500 uppercase tracking-widest mb-4">Verification_Hash</p>
+                  <p className="text-[9px] font-mono text-blue-500 break-all mb-6 uppercase">
+                    IBM_SB_2025_V_INTERN_AUTH_001
+                  </p>
+                  <a 
+                    href={exp.verificationLink} 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="w-full py-3 bg-blue-500 text-white/80 font-black uppercase italic tracking-tighter text-[20px] hover:bg-white hover:text-black hover:scale-105 transition-all text-center block no-underline"
+                  >
+                    View Verification
+                  </a>
+                </div>
+              </div>
+            </motion.div>
+          ))}
         </div>
       </div>
 
