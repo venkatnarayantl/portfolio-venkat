@@ -1,4 +1,4 @@
-import { motion, useAnimation, useInView } from "framer-motion";
+import { motion, useInView } from "framer-motion";
 import { useEffect, useRef } from "react";
 import { CpuChipIcon, CommandLineIcon, CodeBracketIcon } from "@heroicons/react/24/solid";
 

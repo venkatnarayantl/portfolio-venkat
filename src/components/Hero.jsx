@@ -169,7 +169,7 @@ export default function Hero() {
           </motion.a>
           
           <motion.a
-            href="/Venkat_resume_edi (1).pdf"
+            href="/Venkat_resume_latest_90__ (2).pdf"
             whileHover={{ scale: 1.05, backgroundColor: "rgba(255,255,255,0.05)" }}
             className="px-12 py-4 border border-white/10 text-white font-black text-[10px] uppercase tracking-[0.3em] transition-all relative group"
             style={{ clipPath: "polygon(10% 0, 100% 0, 90% 100%, 0 100%)" }}
